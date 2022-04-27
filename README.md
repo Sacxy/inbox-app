@@ -75,6 +75,46 @@ Normally you would go to start.spring.io to create a new spring boot application
 
 ### The starter project contains OAuth and the provider is Github, uses Github Id to Authenticate the users onto our app, it has spring security and has the placeholder for Github login.
 
+- put the clientID and clientSecret in the application.yaml file
+- be careful and not expose these keys to the whole world, coz people are vicious lol
+- and then you are good to go.
+
+Let me explain a little bit more about the starter, it contains a simple thymleaf template page for login, and a very simple code for authentication
+
+## Connecting Apache Cassandra to our spring boot 
+
+Generate the Token from DataStax.
+- change the application.yaml file for the configurations needed to connect to the DB
+- Schema-action : This is an interesting thing, there are options like create, create_if_not_exits, none, recreate & recreate_drop_unused. Each have their own purpose to manipulate the schema, when developing choose whatever suits your needs but when in production you wanna change that to none, well coz you don't wanna mess up the tables
+- we gonna use recreate_drop_unused : the db gonna be wiped everytime you start your application
+- now if i start the app it will start to look for the local cassandra instance, but we have a hosted one, so we gotta tell it where to connect to
+
+Add this to yaml file to tell it where to connect:
+
+    astra.db:
+        id: 
+        region: 
+        keyspace: 
+        application.token:
+
+Not Done yet, one last thing left; The *secure-bundle.zip* file
+
+    datastax.astra:
+        secure-connect-bundle:
+
+Add this to your application.yaml file and give the location of the secure-connect.zip file which can be downloaded off the connect->Java location in the datastax site.
+
+- You can put the secure-connect.zip file in the resources folder of the project, so you won't need to add the file location, as src/main/resources in any maven project is in the classpath.
+
+Add This to your main java file (InboxApp.java) 
+
+    @Bean
+    public CqlSessionBuilderCustomizer sessionBuilderCustomizer(DataStaxAstraProperties astraProperties) {
+        Path bundle = astraProperties.getSecureConnectBundle().toPath();
+        return builder -> builder.withCloudSecureConnectBundle(bundle);
+    }
+
+This is neccessary to have for spring boot application to use the astra secure-connect bundle to connect to the Database 
 
 
 
