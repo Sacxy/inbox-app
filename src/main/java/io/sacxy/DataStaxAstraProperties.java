@@ -1,4 +1,4 @@
-package io.javabrains;
+package io.sacxy;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

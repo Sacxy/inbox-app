@@ -114,7 +114,21 @@ Add This to your main java file (InboxApp.java)
         return builder -> builder.withCloudSecureConnectBundle(bundle);
     }
 
-This is neccessary to have for spring boot application to use the astra secure-connect bundle to connect to the Database 
+This is necessary to have for spring boot application to use the astra secure-connect bundle to connect to the Database
+
+Now we are Connected to the CassandraDB, we can now start writing entity classes to design our database.
+
+## Entities
+
+- if we remember, we need the folder_by_user entity, so lets start making that.
+
+#### folder_by_user
+
+        UserId: (Partitioning Key)   TEXT
+        Label: (Clustering Column)   TEXT
+        Color:                       TEXT
+
+
 
 
 
