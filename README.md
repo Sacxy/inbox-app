@@ -128,6 +128,9 @@ Now we are Connected to the CassandraDB, we can now start writing entity classes
         Label: (Clustering Column)   TEXT
         Color:                       TEXT
 
+Model this in java classes .
+
+
 
 
 
