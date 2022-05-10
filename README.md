@@ -130,6 +130,15 @@ Now we are Connected to the CassandraDB, we can now start writing entity classes
 
 Model this in java classes .
 
+Using CSS Grid Holy Grail layout 
+
+        Header      Content     List
+                    
+                Footer
+
+Kinda like this.
+Created the folder list and default folders service, which will serve default folders.
+
 
 
 
