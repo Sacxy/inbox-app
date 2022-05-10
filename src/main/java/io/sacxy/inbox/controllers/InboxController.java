@@ -2,6 +2,7 @@ package io.sacxy.inbox.controllers;
 
 import io.sacxy.inbox.folders.Folder;
 import io.sacxy.inbox.folders.FolderRepository;
+import io.sacxy.inbox.folders.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,15 +19,22 @@ public class InboxController {
     @Autowired
     private FolderRepository folderRepository;
 
+    @Autowired
+    private FolderService folderService;
+
     @GetMapping(value = "/")
     public String homePage(@AuthenticationPrincipal OAuth2User principal, Model model) {
         if(principal == null || !StringUtils.hasText(principal.getAttribute("login"))) {
             return "index";
         } else {
 
+
             String userId = principal.getAttribute("login");
             List<Folder> userFolders = folderRepository.findAllById(userId);
             model.addAttribute("userFolders",userFolders);
+
+            List<Folder> defaultFolders = folderService.fetchDefaultFolders(userId);
+            model.addAttribute("defaultFolders",defaultFolders);
 
             return "inbox-page";
         }

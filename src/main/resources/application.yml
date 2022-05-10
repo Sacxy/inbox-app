@@ -17,7 +17,7 @@ spring:
       request:
         timeout: 10s
       connection:
-        connect-timeout: 10s
+        connect-timeout: 20s
         init-query-timeout: 10s
 
 astra.db:
