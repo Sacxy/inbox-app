@@ -1,6 +1,8 @@
 package io.sacxy.inbox;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
+import io.sacxy.inbox.email.Email;
+import io.sacxy.inbox.email.EmailRepository;
 import io.sacxy.inbox.emaillist.EmailListItem;
 import io.sacxy.inbox.emaillist.EmailListItemKey;
 import io.sacxy.inbox.emaillist.EmailListItemRepository;
@@ -29,6 +31,9 @@ public class InboxApp {
 
 	@Autowired
 	EmailListItemRepository emailListItemRepository;
+
+	@Autowired
+	EmailRepository emailRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(InboxApp.class, args);
@@ -59,6 +64,16 @@ public class InboxApp {
 			item.setRead(true);
 
 			emailListItemRepository.save(item);
+
+			Email email = new Email();
+
+			email.setId(key.getTimeUUID());
+			email.setSubject(item.getSubject());
+			email.setTo(item.getTo());
+			email.setBody("Body" + i);
+			email.setFrom("Sacxy");
+
+			emailRepository.save(email);
 
 		}
 	}

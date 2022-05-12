@@ -133,7 +133,7 @@ Model this in java classes .
 Using CSS Grid Holy Grail layout 
 
         Header      Content     List
-                    
+         fbu           mbuf
                 Footer
 
 Kinda like this.
